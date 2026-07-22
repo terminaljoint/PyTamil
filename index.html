@@ -1,220 +1,511 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PyTamil</title>
-    <style>
-        /* --- Global Reset & Styles --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PyTamil Documentation Community | TOSS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-pure: #ffffff;
+      --bg-subtle: #f8fafc;
+      --accent-blue: #0284c7;
+      --accent-blue-light: #e0f2fe;
+      --accent-yellow: #d97706;
+      --accent-yellow-light: #fef3c7;
+      --accent-green: #16a34a;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-color: #cbd5e1;
+      --border-light: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: #333;
-            background-color: #f8f9fa;
-            line-height: 1.6;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', 'Noto Sans Tamil', sans-serif;
+    }
 
-        /* --- Header --- */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            background-color: #1e293b;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+    body {
+      background-color: var(--bg-pure);
+      color: var(--text-main);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-        header h1 {
-            font-size: 1.25rem;
-        }
+    
+    sidebar {
+      width: 280px;
+      background-color: var(--bg-pure);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 16px;
+      z-index: 10;
+      flex-shrink: 0;
+    }
 
-        /* --- Main Layout Container --- */
-        .container {
-            display: flex;
-            margin-top: 60px; /* Space for fixed header */
-            min-height: calc(100vh - 120px); /* Height adjusted for header & footer */
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-light);
+    }
 
-        /* --- Left Sidebar Navigation --- */
-        nav {
-            width: 240px;
-            background-color: #0f172a;
-            position: fixed;
-            top: 60px;
-            bottom: 0;
-            left: 0;
-            padding: 20px 0;
-            overflow-y: auto;
-        }
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #ffffff;
+      font-size: 18px;
+    }
 
-        nav ul {
-            list-style: none;
-        }
+    .brand-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
 
-        nav ul li a {
-            display: block;
-            padding: 12px 24px;
-            color: #94a3b8;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
+    .nav-menu {
+      list-style: none;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
-        nav ul li a:hover {
-            background-color: #1e293b;
-            color: #38bdf8;
-            padding-left: 28px;
-        }
+    .nav-item {
+      padding: 14px 18px;
+      border-radius: 8px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid transparent;
+    }
 
-        /* Active Navigation Link Styling */
-        nav ul li a.active-link {
-            background-color: #1e293b;
-            color: #38bdf8;
-            border-left: 4px solid #38bdf8;
-        }
+    .nav-item:hover {
+      background-color: var(--bg-subtle);
+      color: var(--text-main);
+    }
 
-        /* --- Main Content Area --- */
-        main {
-            margin-left: 240px; /* Space for sidebar */
-            padding: 40px;
-            width: calc(100% - 240px);
-        }
+    .nav-item.active {
+      background-color: var(--accent-blue-light);
+      color: var(--accent-blue);
+      border-color: #bae6fd;
+      border-left: 4px solid var(--accent-blue);
+    }
 
-        /* Tab Content Sections */
-        .tab-content {
-            display: none; /* Hide all sections by default */
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
+    .key-hint {
+      font-size: 11px;
+      font-family: 'Fira Code', monospace;
+      padding: 2px 6px;
+      background: #ffffff;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
 
-        /* Show active section */
-        .tab-content.active-tab {
-            display: block;
-        }
+    .sidebar-footer {
+      border-top: 1px solid var(--border-light);
+      padding-top: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+    }
 
-        section h2 {
-            margin-bottom: 15px;
-            color: #0f172a;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 10px;
-        }
+    
+    main {
+      flex: 1;
+      padding: 40px;
+      background-color: var(--bg-pure);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
 
-        /* --- Footer --- */
-        footer {
-            margin-left: 240px;
-            background-color: #1e293b;
-            color: #94a3b8;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9rem;
-        }
+    .tab-content {
+      display: none;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+      animation: fadeIn 0.3s ease-in-out;
+    }
 
-        /* --- Responsive Design (Mobile Friendly) --- */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
+    .tab-content.active {
+      display: block;
+    }
 
-            nav {
-                position: relative;
-                width: 100%;
-                top: 0;
-                height: auto;
-            }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-            main, footer {
-                margin-left: 0;
-                width: 100%;
-            }
+    h2 {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
 
-            main {
-                padding: 20px;
-            }
-        }
-    </style>
+    p.subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background-color: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--accent-blue);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: var(--accent-blue);
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    
+    .flowchart {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-pure);
+      border: 1px solid var(--border-color);
+      padding: 32px;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .flow-node {
+      text-align: center;
+      padding: 16px 24px;
+      background: var(--bg-subtle);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .flow-arrow {
+      color: var(--accent-yellow);
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--accent-yellow-light);
+      color: var(--accent-yellow);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      border: 1px solid #fde68a;
+    }
+
+    .code-box {
+      font-family: 'Fira Code', monospace;
+      background: var(--bg-subtle);
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 14px;
+      margin-top: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /*qr section */
+    .qr-container {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      background: #f0f9ff;
+      border: 1.5px solid var(--accent-blue);
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .qr-placeholder {
+      width: 140px;
+      height: 140px;
+      background: #ffffff;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      display: grid;
+      place-items: center;
+      color: var(--text-main);
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>PyTamil</h1>
-    </header>
+  
+  <sidebar>
+    <div>
+      <div class="brand">
+        <div class="brand-logo">Py</div>
+        <div class="brand-title">PyTamil Docs</div>
+      </div>
 
-    <div class="container">
-        <nav>
-            <ul>
-                <li><a class="nav-link active-link" onclick="openTab(event, 'overview')">Overview</a></li>
-                <li><a class="nav-link" onclick="openTab(event, 'features')">Features</a></li>
-                <li><a class="nav-link" onclick="openTab(event, 'services')">Impacts</a></li>
-                <li><a class="nav-link" onclick="openTab(event, 'portfolio')">How to Contribute</a></li>
-                <li><a class="nav-link" onclick="openTab(event, 'contact')">Contact</a></li>
-            </ul>
-        </nav>
-
-        <main>
-            <section id="overview" class="tab-content active-tab">
-                <h2>Overview</h2>
-                <p>Welcome to PyTamil. This is the overview tab.</p>
-            </section>
-
-            <section id="features" class="tab-content">
-                <h2>Features</h2>
-                <p>Explore the key features here.</p>
-            </section>
-
-            <section id="services" class="tab-content">
-                <h2>Impacts</h2>
-                <p>Learn more about our impacts.</p>
-            </section>
-
-            <section id="portfolio" class="tab-content">
-                <h2>How to contribute</h2>
-                <p>Find out how you can contribute to PyTamil.</p>
-            </section>
-
-            <section id="contact" class="tab-content">
-                <h2>Contact Us</h2>
-                <p>Get in touch with us.</p>
-            </section>
-        </main>
+      <ul class="nav-menu">
+        <li class="nav-item active" data-tab="overview">
+          Overview <span class="key-hint">PgDn 1</span>
+        </li>
+        <li class="nav-item" data-tab="features">
+          How We Work <span class="key-hint">PgDn 2</span>
+        </li>
+        <li class="nav-item" data-tab="impacts">
+          Impacts <span class="key-hint">PgDn 3</span>
+        </li>
+        <li class="nav-item" data-tab="contribute">
+          How to Contribute <span class="key-hint">PgDn 4</span>
+        </li>
+        <li class="nav-item" data-tab="contact">
+          Contact <span class="key-hint">PgDn 5</span>
+        </li>
+      </ul>
     </div>
 
-    <footer>
-        <p>&copy; 2026 PyTamil. All rights reserved.</p>
-    </footer>
+    
+    <div class="sidebar-footer">
+      <p>© 2026 <strong>PyTamil Community</strong>. All rights reserved.</p>
+      <p style="margin-top: 4px; font-size: 11px; color: var(--text-muted);">
+        Built with ❤️ for TOSS Conference
+      </p>
+    </div>
+  </sidebar>
 
-    <script>
-        function openTab(event, tabId) {
-            // Hide all tab contents
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => {
-                content.classList.remove('active-tab');
-            });
+  <!-- MAIN TAB CONTENT -->
+  <main>
 
-            // Remove active style from all navigation links
-            const links = document.querySelectorAll('.nav-link');
-            links.forEach(link => {
-                link.classList.remove('active-link');
-            });
+    <!-- TAB 1: OVERVIEW -->
+    <div class="tab-content active" id="overview">
+      <span class="badge">TOSS Conference 2026</span>
+      <h2>Bringing Python Documentation to Tamil 🐍🇮🇳</h2>
+      <p class="subtitle">Making world-class programming resources accessible in Tamil for students, self-learners, and developers worldwide.</p>
 
-            // Display the target section and highlight the clicked link
-            document.getElementById(tabId).classList.add('active-tab');
-            event.currentTarget.classList.add('active-link');
+      <div class="grid-2">
+        <div class="card">
+          <h3>🎯 The Mission</h3>
+          <p>Translate official Python documentation into clear, natural Tamil without translating technical code keywords.</p>
+        </div>
+        <div class="card">
+          <h3>👥 Who Is It For?</h3>
+          <p>Anyone who knows basic Tamil and loves Python. No prior open-source or deep development experience required!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: HOW WE WORK -->
+    <div class="tab-content" id="features">
+      <h2>How Our Team Works 🔄</h2>
+      <p class="subtitle">A smooth, beginner-friendly pipeline designed for continuous localization.</p>
+
+      <div class="flowchart">
+        <div class="flow-node">
+          📄 Official Python Docs<br><small style="color:var(--text-muted);">(English)</small>
+        </div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-node" style="border-color: var(--accent-yellow);">
+          👥 PyTamil Community<br><small style="color:var(--text-muted);">(Transifex UI)</small>
+        </div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-node" style="border-color: var(--accent-green);">
+          🌐 PyDoc Tamil<br><small style="color:var(--text-muted);">(Published Docs)</small>
+        </div>
+      </div>
+
+      <div class="code-box" style="margin-top: 24px;">
+        <span style="color: var(--text-muted);"># What we translate vs. what stays intact:</span><br>
+        <span style="color: var(--text-main); font-weight: 600;"># Original:</span> "The print() function outputs text to screen."<br>
+        <span style="color: var(--accent-green); font-weight: 600;"># Tamil:</span> "`print()` செயற்கூறு உரையைத் திரையில் அச்சிடும்."
+      </div>
+    </div>
+
+    <!-- TAB 3: IMPACTS ON READERS -->
+    <div class="tab-content" id="impacts">
+      <span class="badge">Why It Matters</span>
+      <h2>How PyTamil Empowers Readers & Learners 💡</h2>
+      <p class="subtitle">Removing the language barrier so anyone, anywhere can master Python in Tamil.</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>🚀 Faster Conceptual Understanding</h3>
+          <p>Learners grasp core programming logic—like loops, functions, and data structures—much faster when explained in their native language.</p>
+        </div>
+
+        <div class="card">
+          <h3>🌐 Zero Language Barrier</h3>
+          <p>Opens doors for rural students, non-native English speakers, and self-learners across Tamil Nadu to step into tech confidently.</p>
+        </div>
+
+        <div class="card">
+          <h3>🧠 Reduced Cognitive Load</h3>
+          <p>No more translating complex English sentences in your head while trying to understand code logic. Learn directly in Tamil!</p>
+        </div>
+
+        <div class="card">
+          <h3>📚 Official & Standardized Resource</h3>
+          <p>Provides a reliable, high-quality, and official Tamil technical reference that students and educators can trust for learning Python.</p>
+        </div>
+      </div>
+
+      <div class="code-box" style="margin-top: 24px; text-align: center; font-size: 15px; background: #fefce8; border-color: #fde68a;">
+        ✨ <span style="color: var(--accent-yellow); font-weight: bold;">Community Impact:</span> 40+ active contributors building the future of Tamil tech education together!
+      </div>
+    </div>
+
+    <!-- TAB 4: HOW TO CONTRIBUTE -->
+    <div class="tab-content" id="contribute">
+      <h2>Join the Mission Today 🚀</h2>
+      <p class="subtitle">Scan the QR code below to jump directly into our Discord community!</p>
+
+      <div class="qr-container">
+        <div class="qr-placeholder">
+          <img src="qrcode_discord.gg.png" alt="Discord QR Code" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        <div>
+          <h3 style="color: var(--text-main); margin-bottom: 4px;">1. Scan & Join Discord</h3>
+          <p style="color: var(--text-muted); margin-bottom: 12px;">Head over to <span style="color: var(--accent-blue); font-weight: 600;">#welcome-beginners</span> channel.</p>
+          <h3 style="color: var(--text-main); margin-bottom: 4px;">2. Pick a Page on Transifex</h3>
+          <p style="color: var(--text-muted); margin-bottom: 12px;">Choose 2-3 lines to translate during your free time.</p>
+          <h3 style="color: var(--text-main); margin-bottom: 4px;">3. Get Onboarded</h3>
+          <p style="color: var(--text-muted);">Join our weekly Sunday meetup @ 7:00 PM IST!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: CONTACT & PLATFORM QR CODES -->
+    <div class="tab-content" id="contact">
+      <span class="badge">Connect & Contribute</span>
+      <h2>Explore Our Platforms 🌐</h2>
+      <p class="subtitle">Scan any QR code below or click to jump straight into our open-source repositories and translation platforms.</p>
+
+      <div class="grid-2">
+        <!-- GITHUB QR CODE CARD -->
+        <div class="card" style="display: flex; align-items: center; gap: 20px;">
+          <div class="qr-placeholder" style="width: 120px; height: 120px; flex-shrink: 0;">
+            <img src="qrcode_github.com.png" alt="GitHub QR Code" style="width: 100%; height: 100%; object-fit: contain;">
+          </div>
+          <div>
+            <h3 style="margin-bottom: 6px;">🐙 GitHub Repository</h3>
+            <p style="margin-bottom: 8px;">Explore our codebase, file translation issues, and submit pull requests.</p>
+          </div>
+        </div>
+
+        <!-- TRANSIFEX QR CODE CARD -->
+        <div class="card" style="display: flex; align-items: center; gap: 20px;">
+          <div class="qr-placeholder" style="width: 120px; height: 120px; flex-shrink: 0;">
+            <img src="qrcode_translations.python.org.png" alt="Transifex QR Code" style="width: 100%; height: 100%; object-fit: contain;">
+          </div>
+          <div>
+            <h3 style="margin-bottom: 6px; color: var(--accent-yellow);">🌐 Transifex Platform</h3>
+            <p style="margin-bottom: 8px;">Translate Python docs directly in your browser without needing Git/GitHub!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMMUNITY FOOTER BANNER -->
+      <div class="code-box" style="margin-top: 24px; text-align: center; font-size: 14px; background: #f0f9ff; border-color: #bae6fd;">
+        💬 Have questions during TOSS? Join our <span style="color: var(--accent-blue); font-weight: 600;">Discord Community</span> or talk to our team at the booth!
+      </div>
+    </div>
+
+  </main>
+
+  <!-- JAVASCRIPT FOR TAB SWITCHING & KEYBOARD NAV -->
+  <script>
+    const navItems = document.querySelectorAll('.nav-item');
+    const tabContents = document.querySelectorAll('.tab-content');
+    let currentIndex = 0;
+
+    function switchTab(index) {
+      if (index < 0 || index >= navItems.length) return;
+      
+      currentIndex = index;
+
+      navItems.forEach(item => item.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+
+      navItems[currentIndex].classList.add('active');
+      tabContents[currentIndex].classList.add('active');
+    }
+
+    // Click event for menu items
+    navItems.forEach((item, index) => {
+      item.addEventListener('click', () => switchTab(index));
+    });
+
+    // Keyboard navigation (PageDown, PageUp, Down Arrow, Up Arrow)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'PageDown' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (currentIndex < navItems.length - 1) {
+          switchTab(currentIndex + 1);
         }
-    </script>
-
+      } else if (e.key === 'PageUp' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (currentIndex > 0) {
+          switchTab(currentIndex - 1);
+        }
+      }
+    });
+  </script>
 </body>
 </html>
