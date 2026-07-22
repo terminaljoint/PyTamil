@@ -43,7 +43,7 @@
         .container {
             display: flex;
             margin-top: 60px; /* Space for fixed header */
-            min-height: calc(100vh - 60px);
+            min-height: calc(100vh - 120px); /* Height adjusted for header & footer */
         }
 
         /* --- Left Sidebar Navigation --- */
@@ -69,6 +69,7 @@
             text-decoration: none;
             font-weight: 500;
             transition: all 0.2s ease;
+            cursor: pointer;
         }
 
         nav ul li a:hover {
@@ -77,21 +78,32 @@
             padding-left: 28px;
         }
 
+        /* Active Navigation Link Styling */
+        nav ul li a.active-link {
+            background-color: #1e293b;
+            color: #38bdf8;
+            border-left: 4px solid #38bdf8;
+        }
+
         /* --- Main Content Area --- */
         main {
             margin-left: 240px; /* Space for sidebar */
             padding: 40px;
             width: calc(100% - 240px);
-            scroll-behavior: smooth;
         }
 
-        section {
+        /* Tab Content Sections */
+        .tab-content {
+            display: none; /* Hide all sections by default */
             background: #ffffff;
             border-radius: 8px;
             padding: 30px;
-            margin-bottom: 30px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            scroll-margin-top: 80px; /* Prevents header from covering section title when clicked */
+        }
+
+        /* Show active section */
+        .tab-content.active-tab {
+            display: block;
         }
 
         section h2 {
@@ -144,38 +156,38 @@
     <div class="container">
         <nav>
             <ul>
-                <li><a href="#overview">Overview</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#services">Impacts</a></li>
-                <li><a href="#portfolio">How to Contribute</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a class="nav-link active-link" onclick="openTab(event, 'overview')">Overview</a></li>
+                <li><a class="nav-link" onclick="openTab(event, 'features')">Features</a></li>
+                <li><a class="nav-link" onclick="openTab(event, 'services')">Impacts</a></li>
+                <li><a class="nav-link" onclick="openTab(event, 'portfolio')">How to Contribute</a></li>
+                <li><a class="nav-link" onclick="openTab(event, 'contact')">Contact</a></li>
             </ul>
         </nav>
 
         <main>
-            <section id="overview">
+            <section id="overview" class="tab-content active-tab">
                 <h2>Overview</h2>
-                <p>.</p>
+                <p>Welcome to PyTamil. This is the overview tab.</p>
             </section>
 
-            <section id="features">
+            <section id="features" class="tab-content">
                 <h2>Features</h2>
-                <p>.</p>
+                <p>Explore the key features here.</p>
             </section>
 
-            <section id="services">
+            <section id="services" class="tab-content">
                 <h2>Impacts</h2>
-                <p>.</p>
+                <p>Learn more about our impacts.</p>
             </section>
 
-            <section id="portfolio">
+            <section id="portfolio" class="tab-content">
                 <h2>How to contribute</h2>
-                <p>.</p>
+                <p>Find out how you can contribute to PyTamil.</p>
             </section>
 
-            <section id="contact">
+            <section id="contact" class="tab-content">
                 <h2>Contact Us</h2>
-                <p>.</p>
+                <p>Get in touch with us.</p>
             </section>
         </main>
     </div>
@@ -183,6 +195,26 @@
     <footer>
         <p>&copy; 2026 PyTamil. All rights reserved.</p>
     </footer>
+
+    <script>
+        function openTab(event, tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active-tab');
+            });
+
+            // Remove active style from all navigation links
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                link.classList.remove('active-link');
+            });
+
+            // Display the target section and highlight the clicked link
+            document.getElementById(tabId).classList.add('active-tab');
+            event.currentTarget.classList.add('active-link');
+        }
+    </script>
 
 </body>
 </html>
