@@ -20,6 +20,7 @@
       --border-light: #e2e8f0;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
       --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
     }
 
     * {
@@ -83,12 +84,12 @@
     }
 
     .nav-item {
-      padding: 14px 18px;
+      padding: 12px 16px;
       border-radius: 8px;
       color: var(--text-muted);
       cursor: pointer;
       font-weight: 600;
-      font-size: 15px;
+      font-size: 14px;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
@@ -242,20 +243,6 @@
       border-bottom: 1px solid var(--border-color);
     }
 
-    .browser-controls {
-      display: flex;
-      gap: 6px;
-    }
-
-    .browser-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    .dot-close { background-color: #ef4444; }
-    .dot-min { background-color: #f59e0b; }
-    .dot-max { background-color: #10b981; }
-
     .browser-address {
       flex: 1;
       background: #ffffff;
@@ -282,6 +269,158 @@
       border: none;
       display: block;
       background: #ffffff;
+    }
+
+    /* --- CHROME VERTICAL CAROUSEL STYLES --- */
+    .chrome-browser {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .chrome-tab-strip {
+      background-color: #dfe1e5;
+      padding: 8px 8px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .chrome-tab {
+      background-color: #ffffff;
+      padding: 8px 16px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      font-size: 12px;
+      color: #202124;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 220px;
+    }
+
+    .chrome-toolbar-carousel {
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chrome-address-bar {
+      flex: 1;
+      background: #f1f3f4;
+      border-radius: 16px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: #202124;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .carousel-viewport {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      background-color: #ffffff;
+      overflow: hidden;
+    }
+
+    /* VERTICAL TRACK (TOP-TO-BOTTOM) */
+    .carousel-track {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      scroll-behavior: smooth;
+      overflow-y: auto;
+      overflow-x: hidden;
+      snap-type: y mandatory;
+      scrollbar-width: none;
+    }
+
+    .carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      snap-align: start;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 16px;
+    }
+
+    .carousel-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* VERTICAL BUTTONS (TOP & BOTTOM) */
+    .slide-btn {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      transition: all 0.2s ease;
+      z-index: 5;
+    }
+
+    .slide-btn:hover {
+      background: var(--accent-blue);
+      color: #ffffff;
+      border-color: var(--accent-blue);
+    }
+
+    .prev-btn { top: 12px; }
+    .next-btn { bottom: 12px; }
+
+    .chrome-footer {
+      background: #f1f3f4;
+      border-top: 1px solid var(--border-color);
+      padding: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .indicator-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #bdc1c6;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .indicator-dot.active {
+      background-color: var(--accent-blue);
+      width: 20px;
+      border-radius: 10px;
     }
 
     .qr-container {
@@ -336,7 +475,7 @@
   <aside>
     <div>
       <div class="brand">
-        <div class="brand-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python programming language logo featuring interlocking blue and yellow snakes in an official branded mark, symbolizing the Python community and open-source development" width="50" height="50"></div>
+        <div class="brand-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python logo" width="50" height="50"></div>
         <div class="brand-title">&nbsp;&nbsp;Python Official Docs in Tamil</div>
       </div>
 
@@ -353,14 +492,17 @@
         <li class="nav-item" role="tab" aria-selected="false" data-tab="github">
           GitHub <span class="key-hint">4</span>
         </li>
+        <li class="nav-item" role="tab" aria-selected="false" data-tab="showcase">
+          GitHub Showcase <span class="key-hint">5</span>
+        </li>
         <li class="nav-item" role="tab" aria-selected="false" data-tab="impacts">
-          Impacts <span class="key-hint">5</span>
+          Impacts <span class="key-hint">6</span>
         </li>
         <li class="nav-item" role="tab" aria-selected="false" data-tab="contribute">
-          How to Contribute <span class="key-hint">6</span>
+          How to Contribute <span class="key-hint">7</span>
         </li>
         <li class="nav-item" role="tab" aria-selected="false" data-tab="contact">
-          Contact <span class="key-hint">7</span>
+          Contact <span class="key-hint">8</span>
         </li>
       </ul>
     </div>
@@ -375,6 +517,7 @@
 
   <main>
 
+    <!-- TAB 1: OVERVIEW -->
     <div class="tab-content active" id="overview" role="tabpanel">
       <span class="badge">TOSS Conference 2026</span>
       <h2>Bringing Python Documentation to Tamil <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo" width="50" height="50"></h2>
@@ -384,7 +527,6 @@
         <div class="card">
           <h3>🎯 The Mission</h3>
           <p>Bringing the Official Python Documentation to Tamil<br><br>
-
 Most programmers in India learn Python in their second or third language. Programming itself is challenging, and reading documentation in English adds another barrier.
 
 PyTamil is a community working to translate the official Python documentation into Tamil, making high-quality learning resources accessible to millions of Tamil speakers.</p>
@@ -396,9 +538,10 @@ PyTamil is a community working to translate the official Python documentation in
       </div>
     </div>
 
+    <!-- TAB 2: HOW WE WORK -->
     <div class="tab-content" id="features" role="tabpanel">
       <h2>How Our Team Works 🔄</h2>
-      <p class="subtitle">Explore the official Python Tamil translations platform directly below.</p><br><br>
+      <p class="subtitle">Explore the official Python Tamil translations platform directly below.</p>
 
       <div class="browser-frame">
         <div class="browser-toolbar">
@@ -416,10 +559,10 @@ PyTamil is a community working to translate the official Python documentation in
       </div>
     </div>
 
-
+    <!-- TAB 3: PROOF OF RECOGNITION -->
     <div class="tab-content" id="proof" role="tabpanel">
       <h2>Proof of getting recognized by PSF</h2>
-      <p class="subtitle">Explore the official Python Tamil translations platform directly below.</p><br><br>
+      <p class="subtitle">Explore the official Python Devguide platform directly below.</p>
 
       <div class="browser-frame">
         <div class="browser-toolbar">
@@ -431,15 +574,16 @@ PyTamil is a community working to translate the official Python documentation in
         <iframe 
           src="https://devguide.python.org/documentation/translations/translating/index.html" 
           class="browser-viewport" 
-          title="Python Tamil Translations Site"
+          title="Python Devguide Translation Recognition"
           loading="lazy">
         </iframe>
       </div>
     </div>
 
+    <!-- TAB 4: GITHUB -->
     <div class="tab-content" id="github" role="tabpanel">
       <h2>GitHub Repository</h2>
-      <p class="subtitle">Explore our codebase, file translation issues, and submit pull requests.</p><br><br>
+      <p class="subtitle">Explore our codebase, file translation issues, and submit pull requests.</p>
 
       <div class="browser-frame">
         <div class="browser-toolbar">
@@ -451,12 +595,58 @@ PyTamil is a community working to translate the official Python documentation in
         <iframe 
           src="https://github.com/Terminal-Joint/python-docs-ta" 
           class="browser-viewport" 
-          title="Python Tamil Translations Site"
+          title="Python Tamil GitHub Repository"
           loading="lazy">
         </iframe>
       </div>
     </div>
 
+    <!-- TAB 5: GITHUB SHOWCASE (VERTICAL CAROUSEL) -->
+    <div class="tab-content" id="showcase" role="tabpanel">
+      <h2>GitHub Showcase 🖼️</h2>
+      <p class="subtitle">Smooth vertical scrollable view of our repository screenshots inside a browser frame.</p>
+
+      <div class="chrome-browser">
+        <div class="chrome-tab-strip">
+          <div class="chrome-tab">
+            <span>🐙</span>
+            <span>GitHub - python-docs-ta</span>
+            <span style="margin-left: auto; color: #5f6368; font-size: 12px;">✕</span>
+          </div>
+        </div>
+
+        <div class="chrome-toolbar-carousel">
+          <div style="display: flex; gap: 10px; color: #5f6368; font-size: 14px;">
+            <span>←</span><span>→</span><span>↻</span>
+          </div>
+          <div class="chrome-address-bar">
+            <span style="color: #1e8e3e; font-size: 12px;">🔒</span>
+            <span>https://github.com/Terminal-Joint/python-docs-ta</span>
+          </div>
+        </div>
+
+        <div class="carousel-viewport">
+          <button class="slide-btn prev-btn" id="prevBtn" title="Previous Slide">▲</button>
+          <button class="slide-btn next-btn" id="nextBtn" title="Next Slide">▼</button>
+
+          <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide">
+              <img src="github.com.png" alt="GitHub Repository Overview 1">
+            </div>
+            <div class="carousel-slide">
+              <img src="github1.com.png" alt="GitHub Repository Overview 2">
+            </div>
+          </div>
+        </div>
+
+        <div class="chrome-footer">
+          <div class="indicator-dot active" data-index="0"></div>
+          <div class="indicator-dot" data-index="1"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: IMPACTS -->
     <div class="tab-content" id="impacts" role="tabpanel">
       <span class="badge">Why It Matters</span>
       <h2>How PyTamil Empowers Readers & Learners 💡</h2>
@@ -489,6 +679,7 @@ PyTamil is a community working to translate the official Python documentation in
       </div>
     </div>
 
+    <!-- TAB 7: HOW TO CONTRIBUTE -->
     <div class="tab-content" id="contribute" role="tabpanel">
       <h2>Join the Mission Today 🚀</h2>
       <p class="subtitle">Scan the QR code below to jump directly into our Discord community!</p>
@@ -508,6 +699,7 @@ PyTamil is a community working to translate the official Python documentation in
       </div>
     </div>
 
+    <!-- TAB 8: CONTACT -->
     <div class="tab-content" id="contact" role="tabpanel">
       <span class="badge">Connect & Contribute</span>
       <h2>Explore Our Platforms 🌐</h2>
@@ -529,20 +721,21 @@ PyTamil is a community working to translate the official Python documentation in
             <img src="qrcode_translations.python.org.png" alt="Transifex QR Code" style="width: 100%; height: 100%; object-fit: contain;">
           </div>
           <div>
-            <h3 style="margin-bottom: 6px; color: var(--accent-yellow);">📈See Our Development Here</h3>
+            <h3 style="margin-bottom: 6px; color: var(--accent-yellow);">📈 See Our Development Here</h3>
             <p style="margin-bottom: 8px;">Translate Python docs directly in your browser without needing Git/GitHub!</p>
           </div>
         </div>
       </div>
 
       <div class="code-box" style="margin-top: 24px; text-align: center; font-size: 14px; background: #f0f9ff; border-color: #bae6fd;">
-        💬 Visit these links to get a better clarity  <span style="color: var(--accent-blue); font-weight: 600;">Discord Community</span> or talk to our team at the booth!
+        💬 Visit these links to get better clarity <span style="color: var(--accent-blue); font-weight: 600;">Discord Community</span> or talk to our team at the booth!
       </div>
     </div>
 
   </main>
 
   <script>
+    // --- MAIN TAB NAVIGATION ---
     const navItems = document.querySelectorAll('.nav-item');
     const tabContents = document.querySelectorAll('.tab-content');
     let currentIndex = 0;
@@ -568,7 +761,7 @@ PyTamil is a community working to translate the official Python documentation in
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key >= '1' && e.key <= '5') {
+      if (e.key >= '1' && e.key <= '8') {
         const targetIndex = parseInt(e.key, 10) - 1;
         switchTab(targetIndex);
         return;
@@ -582,6 +775,55 @@ PyTamil is a community working to translate the official Python documentation in
         if (currentIndex > 0) switchTab(currentIndex - 1);
       }
     });
+
+    // --- VERTICAL CAROUSEL FUNCTIONALITY ---
+    const track = document.getElementById('carouselTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dots = document.querySelectorAll('.indicator-dot');
+    const slides = document.querySelectorAll('.carousel-slide');
+
+    let currentSlide = 0;
+
+    function scrollToSlide(index) {
+      if (!track || index < 0 || index >= slides.length) return;
+      currentSlide = index;
+
+      const slideHeight = slides[0].clientHeight;
+      track.scrollTo({
+        top: slideHeight * currentSlide,
+        behavior: 'smooth'
+      });
+
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlide);
+      });
+    }
+
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', () => {
+        scrollToSlide(currentSlide > 0 ? currentSlide - 1 : slides.length - 1);
+      });
+
+      nextBtn.addEventListener('click', () => {
+        scrollToSlide(currentSlide < slides.length - 1 ? currentSlide + 1 : 0);
+      });
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => scrollToSlide(idx));
+      });
+
+      track.addEventListener('scroll', () => {
+        const slideHeight = slides[0].clientHeight;
+        const newIndex = Math.round(track.scrollTop / slideHeight);
+        if (newIndex !== currentSlide && newIndex >= 0 && newIndex < slides.length) {
+          currentSlide = newIndex;
+          dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === currentSlide);
+          });
+        }
+      });
+    }
   </script>
 </body>
 </html>
